@@ -1,3 +1,6 @@
+import fs from 'fs'
+import path from 'path'
+
 export function wrapperEnv(envOptions: Recordable): ViteEnv {
   const ret: any = {}
   if (!envOptions) return ret
@@ -18,4 +21,40 @@ export function wrapperEnv(envOptions: Recordable): ViteEnv {
     }
   }
   return ret
+}
+
+/**
+ * 遍历所有文件的路径
+ * @param {string} dir 
+ * @returns {Array<string>}
+ */
+function traverseFilePath(dir: string): Array<string> {
+  let res = []
+  fs.readdirSync(dir).forEach(file => {
+    const pathName = path.join(dir, file)
+    if (fs.statSync(pathName).isDirectory()) {
+      res = [...res, ...traverseFilePath(pathName)]
+    } else {
+      res.push(pathName)
+    }
+  })
+  return res
+}
+
+export function getAllPages() {
+  const pagesDir = path.resolve(process.cwd(), './pages')
+  const pages = traverseFilePath(pagesDir)
+  return pages.filter(fileName => fileName.endsWith('.html')).map(page => {
+    let fullPath = page.split('\\pages\\')[1]
+    /**
+     * TODO
+     */
+    if (fullPath.split('/'))
+      return {
+
+      }
+  })
+  pages.forEach(page => {
+    console.log(page.split('\\pages\\')[1])
+  })
 }

@@ -1,12 +1,14 @@
 import { defineConfig, loadEnv } from 'vite'
 import { resolve } from 'path'
-import { wrapperEnv } from './build/utils'
+import { getAllPages, wrapperEnv } from './build/utils'
 
 export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd())
   const viteEnv = wrapperEnv(env)
 
   const { VITE_PORT: port } = viteEnv
+
+  getAllPages()
 
   return {
     css: {
