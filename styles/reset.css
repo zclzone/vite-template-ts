@@ -1,0 +1,72 @@
+html {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+*,
+::before,
+::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+  -webkit-box-sizing: inherit;
+  -webkit-tap-highlight-color: transparent; /* 清除点击高亮效果 */
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+a:hover,
+a:link,
+a:visited,
+a:active {
+  text-decoration: none;
+}
+
+ol,ul{
+  list-style: none;
+}
+
+input,
+textarea {
+  outline: none;
+  border: none;
+  resize: none;
+  -webkit-appearance: none;
+}
+
+/**
+* rem响应式布局
+*/
+html {
+  font-size: calc(100vw / 7.5);
+}
+
+@media screen and (min-width: 450px) {
+  html {
+    font-size: calc(450px / 7.5);
+  }
+}
+
+@media screen and (max-width: 300px) {
+  html {
+    font-size: calc(300px / 7.5);
+  }
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: normal;
+  background-color: #fff;
+  font-family: 'Encode Sans Condensed', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
