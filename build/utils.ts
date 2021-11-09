@@ -45,11 +45,11 @@ export function getAllPages(pageDir) {
   const pagesDir = resolve(process.cwd(), pageDir)
   const pages = traverseFilePath(pagesDir)
   const pageObj = {}
-  pages.filter(fileName => fileName.endsWith('.html')).forEach(page => {
-    const pathArr = page.split('\\pages\\')[1].split('\\')
+  pages.filter(fileName => fileName.endsWith('.html')).forEach(filePath => {
+    const pathArr = filePath.split('\\pages\\')[1].split('\\')
     const key = pathArr.filter(path => path !== 'index.html').join('-') || pathArr[0]
 
-    pageObj[key.replace('.html', '')] = page
+    pageObj[key.replace('.html', '')] = filePath
   })
   return pageObj
 }
