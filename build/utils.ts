@@ -1,5 +1,5 @@
 import fs from 'fs'
-import path from 'path'
+import path, { resolve } from 'path'
 
 export function wrapperEnv(envOptions: Recordable): ViteEnv {
   const ret: any = {}
@@ -41,20 +41,15 @@ function traverseFilePath(dir: string): Array<string> {
   return res
 }
 
-export function getAllPages() {
-  const pagesDir = path.resolve(process.cwd(), './pages')
+export function getAllPages(pageDir) {
+  const pagesDir = resolve(process.cwd(), pageDir)
   const pages = traverseFilePath(pagesDir)
-  return pages.filter(fileName => fileName.endsWith('.html')).map(page => {
-    let fullPath = page.split('\\pages\\')[1]
-    /**
-     * TODO
-     */
-    if (fullPath.split('/'))
-      return {
+  const pageObj = {}
+  pages.filter(fileName => fileName.endsWith('.html')).forEach(page => {
+    const pathArr = page.split('\\pages\\')[1].split('\\')
+    const key = pathArr.filter(path => path !== 'index.html').join('-') || pathArr[0]
 
-      }
+    pageObj[key.replace('.html', '')] = page
   })
-  pages.forEach(page => {
-    console.log(page.split('\\pages\\')[1])
-  })
+  return pageObj
 }

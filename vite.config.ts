@@ -6,9 +6,7 @@ export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd())
   const viteEnv = wrapperEnv(env)
 
-  const { VITE_PORT: port } = viteEnv
-
-  getAllPages()
+  const { VITE_PORT: port, VITE_PAGE_DIR } = viteEnv
 
   return {
     css: {
@@ -34,7 +32,7 @@ export default defineConfig(({ command, mode }) => {
       rollupOptions: {
         input: {
           main: resolve(__dirname, 'index.html'),
-          home: resolve(__dirname, 'pages/home/index.html'),
+          ...getAllPages(VITE_PAGE_DIR)
         }
       }
     }
